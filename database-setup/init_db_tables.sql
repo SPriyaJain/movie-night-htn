@@ -7,23 +7,23 @@ create table movies (
     on_disney boolean not null,
     on_hulu boolean not null,
     year integer not null,
-    rating integer not null,
+    rating decimal(2,1) not null,
     overview varchar(1023),
     imdb_id varchar(10) not null,
-    poster_path varchar(255),
+    poster_path varchar(255)
 );
 
 create table genres (
-    gid integer primary key not null,
+    genre_id integer primary key not null,
     name varchar(255) not null
 );
 
 create table movie_genres (
     mid integer not null,
     genre_id integer not null,
-    primary key(mid, gid),
+    primary key(mid, genre_id),
     foreign key(mid) references movies(mid),
-    foreign key(gid) references genres(gid),
+    foreign key(genre_id) references genres(genre_id)
 );
 
 create table users (
@@ -37,7 +37,7 @@ create table liked_movies (
     uid integer not null,
     primary key(mid, uid),
     foreign key(mid) references movies(mid),
-    foreign key(uid) references users(uid),
+    foreign key(uid) references users(uid)
 );
 
 create table groups (
