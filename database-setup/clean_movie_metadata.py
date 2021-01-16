@@ -20,10 +20,10 @@ with open('./archived/movies_streaming_platform_data.csv', encoding='utf-8') as 
             'id': row[1],
             'year': row[3],
             'imdb_rating': row[5] or 0.0,
-            'on_n': bool(row[7]),
-            'on_h': bool(row[8]),
-            'on_p': bool(row[9]),
-            'on_d': bool(row[10]),
+            'on_n': bool(row[7] == "1"),
+            'on_h': bool(row[8] == "1"),
+            'on_p': bool(row[9] == "1"),
+            'on_d': bool(row[10] == "1"),
             'genres': row[13].split(',')
         }
 
@@ -47,24 +47,30 @@ with open('./archived/movies_metadata.csv', encoding='utf-8') as metadata_file:
 
 
 # Write SQL queries out to file
-sql_output = open('init_full_movie_data.sql', 'w', encoding='utf8')
+sql_movies_output = open('init_movies_data.sql', 'w', encoding='utf8')
 print("Number of movies: {}".format(len(movies)))
 print("Number of genres: {}".format(len(genres)))
-sql_output.write("-- Movies\n")
+sql_movies_output.write("-- Movies\n")
 for name, movie in movies.items():
     # Only include movies that appear in both streaming platforms and metadata CSVs
     if 'desc' not in movie:
         continue
 
     # SQL query to insert into movies table
-    sql_output.write("insert into movies (mid, name, on_netflix, on_prime, on_disney, on_hulu, year, rating, overview, imdb_id, poster_path) values ({}, '{}', {}, {}, {}, {}, {}, {}, '{}', '{}', '{}');\n".format(movie['id'], name, movie['on_n'], movie['on_p'], movie['on_d'], movie['on_h'], movie['year'], movie['imdb_rating'], movie['desc'], movie['imdb_id'], movie['plink']))
+    sql_movies_output.write("insert into movies (mid, name, on_netflix, on_prime, on_disney, on_hulu, year, rating, overview, imdb_id, poster_path) values ({}, '{}', {}, {}, {}, {}, {}, {}, '{}', '{}', '{}');\n".format(movie['id'], name, movie['on_n'], movie['on_p'], movie['on_d'], movie['on_h'], movie['year'], movie['imdb_rating'], movie['desc'], movie['imdb_id'], movie['plink']))
+sql_movies_output.close()
 
-sql_output.write("\n-- Genres\n")
+
+sql_genres_output = open('init_genres_data.sql', 'w', encoding='utf8')
+sql_genres_output.write("-- Genres\n")
 for name, gid in genres.items():
     # SQL query to insert into genres table
-    sql_output.write("insert into genres (genre_id, name) values ({}, '{}');\n".format(gid, name))
+    sql_genres_output.write("insert into genres (genre_id, name) values ({}, '{}');\n".format(gid, name))
+sql_genres_output.close()
 
-sql_output.write("\n-- Movies to Genres\n")
+
+sql_movie_genres_output = open('init_movie_genres_data.sql', 'w', encoding='utf8')
+sql_movie_genres_output.write("-- Movies to Genres\n")
 for name, movie in movies.items():
     for genre in movie['genres']:
         # Exclude movies with no genres (Shows up as single '' element in list)
@@ -72,6 +78,6 @@ for name, movie in movies.items():
             continue
         
         # SQL query to insert into movie_genres table
-        sql_output.write("insert into movie_genres (mid, genre_id) values ({}, {});\n".format(movie['id'], genres[genre]))
-sql_output.close()
+        sql_movie_genres_output.write("insert into movie_genres (mid, genre_id) values ({}, {});\n".format(movie['id'], genres[genre]))
+sql_movie_genres_output.close()
 
