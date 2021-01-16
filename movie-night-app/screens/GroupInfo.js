@@ -10,7 +10,7 @@ export default function GroupInfo({navigation}) {
       <View style={styles.container}>
         <TextInput mode={"outlined"} placeholder={"Input your group code"} style={styles.input}>
         </TextInput>
-        <Button style={styles.submit} dark={true} uppercase={true} mode="contained" onPress={navigation.navigate('MovieCard')}>
+        <Button style={styles.submit} dark={true} uppercase={true} mode="contained" onPress={() => navigation.navigate('MovieCard')}>
           Submit
         </Button>
       </View>
