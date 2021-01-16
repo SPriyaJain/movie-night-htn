@@ -5,8 +5,16 @@ const cors = require('cors')
 const app = express()
 const db = require('./database')
 
-app.use(cors())
-const port = 8080
+app.use(cors());
+const port = 8080;
+
+var groupsRouter = require('./routes/groups');
+var moviesRouter = require('./routes/movies');
+var usersRouter = require('./routes/users');
+
+app.use('/groups', groupsRouter);
+app.use("/movies", moviesRouter);
+app.use('/users', usersRouter);
 
 app.get('/', (req, res) => {
   db.query('SELECT NOW()', (err, response) => {
