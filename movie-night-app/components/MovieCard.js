@@ -51,11 +51,11 @@ const LeftContent = props => <Avatar.Icon {...props} icon="filmstrip" style={{ba
 
 export default function MovieCard (props) {
     const accept = () => {
-      console.log("ACCEPTED")
+      props.swipeRight()
     }
 
     const reject = () => {
-      console.log("REJECTED")
+      props.swipeLeft()
     }
 
     return (
