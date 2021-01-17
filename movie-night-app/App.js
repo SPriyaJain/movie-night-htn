@@ -17,7 +17,7 @@ function MovieCardTest() {
   }
   return (
     <View style={styles.container}>
-      <MovieGallery />
+      <MovieGallery uid="1" />
       <MatchedAlert hideModalCallback={hideModal} visible={visible} movie={{title: "toy story", overview: "this is a description", year: 2000}} />
     </View>
   )

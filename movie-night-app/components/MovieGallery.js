@@ -26,7 +26,7 @@ export default function MovieGallery(props) {
     getMovies();
   }, []);
   function getMovies() {
-    fetch('https://htn2020.appspot.com/movies')
+    fetch('https://htn2020.appspot.com/movies/user/'+props.uid)
       .then(response => {
         return response.json();
       })
@@ -43,17 +43,17 @@ export default function MovieGallery(props) {
     swiper.current.swipeRight();
   }
   function swipeInternal(cardIndex, accept) {
-    console.log("Index:", cardIndex, "Title:", movies[cardIndex].name, "Result:", accept)
-    // fetch('http://localhost:3001/merchants', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({name, email}),
-    // })
-    //   .then(response => {
-    //     console.log(response.text());
-    //   });
+    console.log("Index:", cardIndex, "Title:", movies[cardIndex].mid, "Result:", accept)
+    fetch('https://htn2020.appspot.com/movies/like', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({uid: props.uid, mid: movies[cardIndex].mid, is_liked: accept}),
+    })
+      .then(response => {
+        console.log(response.text());
+      });
   }
   function restart() {
     setMovies();
