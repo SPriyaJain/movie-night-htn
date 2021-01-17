@@ -4,12 +4,24 @@ Express.js server to provide data to app frontend. Connects with CockroachDB for
 
 ## Endpoints:
 - /movies
-  - /movies/
+  - /movies/ 
   - /movies/user/{userid}
   - /movies/like
 - /users
+  - /users/
+  - /users/{userId}/genres/{genreId}
+  - /users/{userId}/genres
+  - /users/create
 - /groups
-- /genres
+  - /groups/
+  - /groups/{groupId}
+  - /groups/create
+  - /groups/join
+- /matches
+  - /matches/group/{groupId}
+  - /matches/user/view/{userId}
+  - /matches/user/viewnew/{userId}
+  - /matches/user/{userId}
 
 ## Steps to run
 1. Copy CockroachDB's cc-ca.crt certificate to backend-app directory
