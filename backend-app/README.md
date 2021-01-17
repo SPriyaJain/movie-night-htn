@@ -3,25 +3,40 @@
 Express.js server to provide data to app frontend. Connects with CockroachDB for data. Currently hosted at http://htn2020.appspot.com/
 
 ## Endpoints:
-- /movies
-  - /movies/ 
-  - /movies/user/{userid}
-  - /movies/like
-- /users
-  - /users/
-  - /users/{userId}/genres/{genreId}
-  - /users/{userId}/genres
-  - /users/create
-- /groups
-  - /groups/
-  - /groups/{groupId}
-  - /groups/create
-  - /groups/join
-- /matches
-  - /matches/group/{groupId}
-  - /matches/user/view/{userId}
-  - /matches/user/viewnew/{userId}
-  - /matches/user/{userId}
+- `/movies`
+  - `/movies/`
+    - [GET] Grabs a list of 10 movies
+  - `/movies/user/{userid}`
+    - [GET] Grabs 10 movies recommended for the specified user
+  - `/movies/like`
+    - [POST] Likes/Dislikes a specified movie for a user (Input: {uid, mid, is_liked})
+- `/users`
+  - `/users/`
+    - [GET] Returns all users (uid/name/join date)
+  - `/users/{userId}/genres/{genreId}`
+    - [GET] Likes a specific genre for a user
+  - `/users/{userId}/genres`
+    - [GET] Returns the liked genres of a user
+  - `/users/create`
+    - [POST] Creates new user (Input: {name})
+- `/groups`
+  - `/groups/`
+    - [GET] Returns all groups
+  - `/groups/{groupId}`
+    - [GET] Returns all members in the group
+  - `/groups/create`
+    - [POST] Creates new group containing the user that posted (Input: {uid})
+  - `/groups/join`
+    - [POST] Joins the specified group if pin is valid (Input: {pin, uid})
+- `/matches`
+  - `/matches/group/{groupId}`
+    - [GET] Grabs all matches by specified group
+  - `/matches/user/view/{userId}`
+    - [GET] Grabs matches (by specified user) that have not been accepted/deleted
+  - `/matches/user/viewnew/{userId}`
+    - [GET] Grabs all matches by specified user
+  - `/matches/user/{userId}`
+    - [GET] Finds new matches for a user and inserts into 
 
 ## Steps to run
 1. Copy CockroachDB's cc-ca.crt certificate to backend-app directory
