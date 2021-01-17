@@ -38,9 +38,11 @@ export default function MovieGallery(props) {
   const swiper = useRef();
   function swipeLeft() {
     swiper.current.swipeLeft();
+    props.leftSwipe();
   }
   function swipeRight() {
     swiper.current.swipeRight();
+    props.rightSwipe();
   }
   function swipeInternal(cardIndex, accept) {
     fetch('https://htn2020.appspot.com/movies/like', {

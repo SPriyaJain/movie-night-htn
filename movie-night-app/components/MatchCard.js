@@ -5,8 +5,8 @@ import { Avatar, Button, Card, IconButton, Title, Paragraph } from 'react-native
 const styles = StyleSheet.create({
   card: {
     borderColor: '#7B59D9',
-    height: '52%',
-    margin: 20,
+    height: 200,
+    margin: 15,
   },
   action: {
     borderColor: "#7B59D9",
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function MovieCard (props) {
+export default function MatchCard (props) {
     return (
       <View style={styles.card}>
         <Card>
