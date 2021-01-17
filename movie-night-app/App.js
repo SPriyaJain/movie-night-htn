@@ -6,7 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MovieCard from './components/MovieCard';
 import GroupInfo from './screens/GroupInfo';
-import MovieGallery from './components/MovieGallery'
+import MovieGallery from './components/MovieGallery';
+import MatchedAlert from './components/MatchedAlert';
 
 function MovieCardTest() {
   const [visible, setVisible] = React.useState(true)
