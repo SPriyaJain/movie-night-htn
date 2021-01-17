@@ -41,11 +41,17 @@ const styles = StyleSheet.create({
     color: "#7B59D9",
   },
   cover: {
-    height: '60%'
-  }
+    height: '40%'
+  },
 });
 
-
+function strip(overview) {
+  if (overview.length > 200) {
+    return overview.slice(0, 200) + "..."
+  } else {
+    return overview
+  }
+}
 
 const LeftContent = props => <Avatar.Icon {...props} icon="filmstrip" style={{backgroundColor: '#7B59D9'}}/>
 
@@ -63,7 +69,7 @@ export default function MovieCard (props) {
         <Card elevation={5}>
           <Card.Cover style={styles.cover} source={{ uri: `${"https://www.themoviedb.org/t/p/w200"+props.poster_path}` }} />
           <Card.Title title={props.name} subtitle={props.year} left={LeftContent} />
-          <Card.Content>
+          <Card.Content style={styles.content}>
             <View style={styles.chipsContainer}>
               {  ["Comedy", "Adventure"].map((item, index) => {
                   return (
@@ -78,7 +84,7 @@ export default function MovieCard (props) {
                 })
               }
             </View>
-            <Paragraph>{props.overview}</Paragraph>
+            <Paragraph>{strip(props.overview)}</Paragraph>
           </Card.Content>
           
           <Card.Actions>
