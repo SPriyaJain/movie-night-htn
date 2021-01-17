@@ -13,10 +13,12 @@ app.use(cors());
 const port = 8080;
 
 var groupsRouter = require('./routes/groups');
+var matchesRouter = require('./routes/matches');
 var moviesRouter = require('./routes/movies');
 var usersRouter = require('./routes/users');
 
 app.use('/groups', groupsRouter);
+app.use("/matches", matchesRouter);
 app.use("/movies", moviesRouter);
 app.use('/users', usersRouter);
 

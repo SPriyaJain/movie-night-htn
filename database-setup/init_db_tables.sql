@@ -61,3 +61,17 @@ create table group_members (
     foreign key(group_id) references groups(group_id),
     foreign key(uid) references users(uid)
 );
+
+create table matches (
+    match_id serial not null primary key,
+    group_id serial not null,
+    mid integer not null,
+    u1 serial not null,
+    u2 serial not null,
+    accepted boolean not null,
+    deleted boolean not null,
+    foreign key(group_id) references groups(group_id),
+    foreign key(mid) references movies(mid),
+    foreign key(u1) references users(uid),
+    foreign key(u2) references users(uid)
+);
