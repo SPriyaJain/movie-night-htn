@@ -7,12 +7,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MovieCard from './components/MovieCard';
 import GroupInfo from './screens/GroupInfo';
+import MatchList from './screens/MatchList';
 import MovieGallery from './components/MovieGallery';
 import MatchedAlert from './components/MatchedAlert';
 
 
 function MovieCardTest() {
-  const [visible, setVisible] = React.useState(true)
+  const [visible, setVisible] = React.useState(false)
   const hideModal = () => {
     setVisible(false);
     console.log("HIDE");
@@ -35,7 +36,7 @@ function MovieCardTest() {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="GroupsInfo">
+      <Stack.Navigator initialRouteName="Matches">
         <Stack.Screen name="GroupsInfo" component={GroupInfo} 
           options={{
             headerStyle: {
@@ -62,6 +63,8 @@ export default function App() {
             headerBackTitleVisible: false,
           }}
         />
+        <Stack.Screen name="Matches" component={MatchList}>
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
