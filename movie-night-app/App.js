@@ -5,10 +5,15 @@ import MovieGallery from './components/MovieGallery';
 import MatchedAlert from './components/MatchedAlert';
 
 export default function App() {
+  const [visible, setVisible] = React.useState(true)
+  const hideModal = () => {
+    setVisible(false);
+    console.log("HIDE");
+  }
   return (
     <View style={styles.container}>
       {/* <MovieGallery /> */}
-      <MatchedAlert movie={{title: "toy story", overview: "this is a description", year: 2000}} />
+      <MatchedAlert hideModalCallback={hideModal} visible={visible} movie={{title: "toy story", overview: "this is a description", year: 2000}} />
 
     </View>
   );

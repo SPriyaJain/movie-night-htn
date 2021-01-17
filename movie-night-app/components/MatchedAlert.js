@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1.5,
     color: 'white',
-    marginLeft: '2%'
+    marginLeft: '2%',
   },
   actions: {
     display: 'flex',
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
 })
 
 function MatchedAlert(props) {
-  const [visible, setVisible] = useState(true);
-  const hideModal = () => setVisible(false);
+  var visible = props.visible
+  const hideModal = () => { props.hideModalCallback() };
   
   const acceptMatch = () => {
     console.log("accepted");
