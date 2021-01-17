@@ -4,6 +4,7 @@ var router = express.Router();
 const db = require('../database');
 const crypo = require('crypto');
 
+// Grab all users
 router.get('/', (req, res) => {
   db.query('SELECT * FROM users', (err, response) => {
     if (err) {
@@ -14,6 +15,9 @@ router.get('/', (req, res) => {
   });
 });
 
+// Like a new genre as a specific user
+// Input userId & genreId
+// Output success boolean
 router.get('/:userId/genres/:genreId', (req, res) => {
     db.query('INSERT INTO user_liked_genres (uid, genre_id) VALUES ($1,$2);', [req.params.userId, req.params.genreId], (err, result) => {
         if (err) {
@@ -24,6 +28,8 @@ router.get('/:userId/genres/:genreId', (req, res) => {
     });
 });
 
+// Grab all liked genres by a specific user
+// Input userId
 router.get('/:userId/genres', (req, res) => {
     db.query('SELECT genres.genre_id, genres.name FROM genres, user_liked_genres WHERE user_liked_genres.genre_id=genres.genre_id AND user_liked_genres.uid=$1;', [req.params.userId], (err, genres) => {
         res.json({genres: genres.rows});
