@@ -18,6 +18,9 @@ router.get('/', (req, res) => {
 router.get('/user/:userId', (req, res) => {
     db.query('SELECT genre_id FROM user_liked_genres WHERE uid=$1;', [req.params.userId], (err, genres) => {
         let genreArr = genres.rows.map((genre) => genre.genre_id);
+        if (genreArr.length == 0) {
+          genreArr = Array(27).fill().map((_, i) => i+1)
+        }
         var params = [];
         for(var i = 2; i <= genreArr.length+1; i++) {
             params.push('$' + i);
