@@ -32,8 +32,20 @@ router.get('/user/:userId', (req, res) => {
             for(var i = 1; i <= movieArr.length; i++) {
                 params.push('$' + i);
             }
-            db.query("SELECT * FROM movies WHERE mid in (" + params.join(',') + ");", movieArr, (err, movies) => {
-                res.json({movies: movies.rows});
+            db.query("SELECT * FROM movies WHERE mid in (" + params.join(',') + ");", movieArr, async (err, movies) => {
+              resp = movies.rows;
+              // add genres to resp
+              for (let movie in resp) {
+                let mid = resp[movie]["mid"]
+                let movieGenres = []
+
+                movieGenres = await db.query("SELECT genre_id FROM movie_genres WHERE mid=$1", [mid]);
+                movieGenres = movieGenres.rows.map((genre) => genre.genre_id);
+
+                resp[movie]["genres"] = movieGenres;
+              }
+
+              res.json({movies: resp});
             })
         });
     })
