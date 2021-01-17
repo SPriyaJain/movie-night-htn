@@ -1,4 +1,4 @@
-# database-setup
+# Flock Database Setup
 Info on setting up the databases with movie data.
 
 ### init_db_tables.sql
