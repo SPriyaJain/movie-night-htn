@@ -37,6 +37,7 @@ router.get('/:userId/genres', (req, res) => {
 });
 
 // create new user
+// Input POST {name}
 router.post('/create', (req, res) => {
   db.query('SELECT COUNT(*) FROM users;', async (err, response) => {
     let name = req.body.name;

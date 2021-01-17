@@ -42,7 +42,7 @@ router.get('/user/:userId', (req, res) => {
 
 // like/dislikes movies (userId/movieId/is_like)
 router.post('/like', (req, res) => {
-    db.query('INSERT INTO user_liked_movies (uid, mid, is_liked) values (?, ?, ?);',
+    db.query('INSERT INTO user_liked_movies (uid, mid, is_liked) values ($1, $2, $3);',
         [req.body.uid, req.body.mid, Number(req.body.is_liked) !== 0], (err, result) => {
             if (err) {
                 res.json({success: false});    

@@ -40,10 +40,15 @@ router.post('/create', (req, res) => {
 // Input POST {uid, pin}
 // Output Group and success bool if valid pin is given
 router.post('/join', (req, res) => {
-  db.query("SELECT * FROM groups WHERE pin=$?;", [req.body.pin], (request, response) => {
+  db.query("SELECT * FROM groups WHERE pin=$1;", [req.body.pin], (err, response) => {
     if (response.rows.length) {
-      db.query("INSERT INTO group_members (group_id, uid) VALUES ($1,$2);", [response.rows[0].group_id, req.body.uid]);
-      res.json({success: true, group: response.rows[0]});
+      db.query("INSERT INTO group_members (group_id, uid) VALUES ($1,$2);", [response.rows[0].group_id, req.body.uid], (err, _) => {
+        if (err) {
+          res.json({success: true, group: response.rows[0]});
+        } else {
+          res.json({success: false});
+        }
+      });
     } else {
       res.json({success: false});
     }
