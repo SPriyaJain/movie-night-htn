@@ -19,14 +19,7 @@ function MovieCardTest() {
   }
   return (
     <View style={styles.container}>
-      <MovieCard
-        title="Up"
-        year="2009"
-        summary="Lots and lots and lots and lots and lots and lots and lots and lots and lots and lots and lots of balloons."
-        photo='https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Up_%282009_film%29.jpg/220px-Up_%282009_film%29.jpg'
-        genres={["Cartoon", "Adventure"]}
-      />
-      <MovieGallery />
+      <MovieGallery uid="1" />
       <MatchedAlert hideModalCallback={hideModal} visible={visible} movie={{title: "toy story", overview: "this is a description", year: 2000}} />
     </View>
   )
